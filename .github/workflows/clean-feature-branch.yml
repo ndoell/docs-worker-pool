@@ -15,21 +15,21 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '18.x'
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-      - name: Cleanup Feature Branch Infrastructure
-        run: |
-          npm ci
-          cd cdk-infra/
-          npm ci
-          npm run cdk destroy -- -c customFeatureName=enhancedApp-stg-${{github.head_ref}} --force \
-            auto-builder-stack-enhancedApp-stg-${{github.head_ref}}-worker \
-            auto-builder-stack-enhancedApp-stg-${{github.head_ref}}-queues \
-            auto-builder-stack-enhancedApp-stg-${{github.head_ref}}-webhooks
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: us-east-2
+#      - name: Cleanup Feature Branch Infrastructure
+#        run: |
+#          npm ci
+#          cd cdk-infra/
+#          npm ci
+#          npm run cdk destroy -- -c customFeatureName=enhancedApp-stg-${{github.head_ref}} --force \
+#            auto-builder-stack-enhancedApp-stg-${{github.head_ref}}-worker \
+#            auto-builder-stack-enhancedApp-stg-${{github.head_ref}}-queues \
+#            auto-builder-stack-enhancedApp-stg-${{github.head_ref}}-webhooks
       - name: Delete cache
         run: gh cache delete ${{github.head_ref}}
         env: 
